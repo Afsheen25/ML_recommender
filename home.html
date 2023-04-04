@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Course Recommender System</title>
+ 
+ <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+    <style>
+        body {
+            font-family: Garamond, serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e7edff;
+        }
+        h1 {
+            text-align: center;
+            font-family: Garamond, serif;
+            margin-top: 50px;
+            font-size: 50px;
+            color: #ffffff;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+             font-family: Garamond, serif;
+        }
+        label {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #cfb9b9;
+             font-family: Garamond, serif;
+        }
+        select {
+            width: 300px;
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #ffffff;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
+             font-family: Garamond, serif;
+        }
+        select:focus {
+            outline: none;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        input[type="submit"] {
+            width: 150px;
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-size: 16px;
+            font-family: Garamond, serif;
+            color: #ffffff;
+            background-color: #4a2044; /* Neon blue color */
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+        input[type="submit"]:hover {
+  background-color: #261123; /* Darker neon blue color */
+  box-shadow: 0px 0px 5px #fff, 0px 0px 10px #261123, 0px 0px 20px #261123; /* Glow effect */
+  color: #fff; /* Change the text color to white */
+  cursor: pointer; /* Change the cursor to pointer */
+}
+
+      
+    h2 {
+        text-align: center;
+        margin-top: 50px;
+        color: #333333;
+         font-family: Garamond, serif;
+    }
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        font-family: Garamond,serif;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin-top: 50px;
+    }
+    li {
+        width: 300px;
+        height: 80px;
+        margin: 10px;
+        padding: 10px;
+        background-color: #ffffff;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+        color: #333333;
+         font-family: Garamond, serif;
+    }
+
+    .navbar {
+    display: flex;
+    
+    align-items: center;
+    background-color: #ffffff;
+    color: #ffffff;
+    padding: 10px;
+}
+
+.navbar a {
+    color: #2a2028;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 18px;
+     font-family: Garamond, serif;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+body {
+  background-image: url("https://images.pexels.com/photos/574070/pexels-photo-574070.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-size: cover; /* this property ensures that the image covers the entire background of the page */
+}
+
+
+    </style>
+    <div class="navbar">
+        <a href="/home">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/">Courses</a>
+    </div>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</head>
+<body>
+    
+      <h1>Course Recommender System</h1>
+    <form method="POST" action="/">
+        <label for="selected_subject">Type or select a subject from the dropdown:</label>
+        <select name="selected_subject" id="selected_subject">
+            {% for course in course_list %}
+            <option value="{{ course }}">{{ course.title() }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Recommend" >
+    </form>
+
+     {% if recommended_courses %}
+    <h2>Recommended Courses:</h2>
+    <ul>
+        {% for index in range(recommended_courses|length) %}
+            <li><a target="_blank" href="{{ course_url[index] }}">{{ recommended_courses[index].title() }}</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+
+   
+</body>
+
+
+</html>
+
+
